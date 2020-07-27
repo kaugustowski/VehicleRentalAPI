@@ -27,6 +27,8 @@ public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "withTransport")
+    private boolean withTransport;
     @OneToOne
     private Client client;
 
@@ -35,6 +37,22 @@ public class Rental {
 
     public int getRentalDays() {
         return (int) (DAYS.between(startDate, endDate) + 1);
+    }
+
+    public int getTotalCost() {
+        return getTransportCost() + getRentalCost();
+    }
+
+    public int getTransportCost() {
+        int transportCost = 0;
+
+        if (withTransport)
+            transportCost = vehicle.getTransportCost();
+        return transportCost;
+    }
+
+    public int getRentalCost() {
+        return getRentalDays() * vehicle.getDailyRentalPrice();
     }
 
 
