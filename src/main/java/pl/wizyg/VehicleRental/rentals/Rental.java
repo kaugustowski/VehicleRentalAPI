@@ -2,7 +2,7 @@ package pl.wizyg.VehicleRental.rentals;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.wizyg.VehicleRental.clients.Client;
+import pl.wizyg.VehicleRental.customers.Customer;
 import pl.wizyg.VehicleRental.vehicles.Vehicle;
 
 import javax.persistence.*;
@@ -14,7 +14,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 @Data
 @Entity
 @Table(name = "rental")
-@ValidRentalDates
+@ValidRentalDates(message = "End date must not be before start date")
 public class Rental {
 
     @NotNull
@@ -29,8 +29,9 @@ public class Rental {
     private Integer id;
     @Column(name = "withTransport")
     private boolean withTransport;
+
     @OneToOne
-    private Client client;
+    private Customer customer;
 
     @OneToOne
     private Vehicle vehicle;
