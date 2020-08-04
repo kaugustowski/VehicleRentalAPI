@@ -1,4 +1,4 @@
-package pl.wizyg.VehicleRental.vehicles;
+package pl.wizyg.VehicleRental.vehicles.industrial;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

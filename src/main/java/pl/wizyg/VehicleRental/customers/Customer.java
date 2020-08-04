@@ -1,4 +1,4 @@
-package pl.wizyg.VehicleRental.clients;
+package pl.wizyg.VehicleRental.customers;
 
 import lombok.Data;
 
@@ -7,8 +7,8 @@ import javax.validation.constraints.Email;
 
 @Data
 @Entity
-@Table(name = "client")
-public class Client {
+@Table(name = "customer")
+public class Customer {
 
     @Id()
     @GeneratedValue

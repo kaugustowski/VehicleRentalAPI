@@ -1,4 +1,4 @@
-package pl.wizyg.VehicleRental.vehicles;
+package pl.wizyg.VehicleRental.vehicles.road;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
