@@ -12,10 +12,6 @@ public abstract class Vehicle {
     @Id
     @Column(name = "id")
     private Integer id;
-    @Column(name = "license_plate")
-    private String licensePlate;
-    @Column(name = "engine_volume")
-    private int engineVolume;
     @Column(name = "make")
     private String make;
     @Column(name = "model")

@@ -10,7 +10,10 @@ import javax.persistence.Entity;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
-public class IndustrialVehicle extends Vehicle {
+public abstract class IndustrialVehicle extends Vehicle {
+
+    @Column(name = "engine_power")
+    private int enginePower;
 
     @Column(name = "transport_cost")
     private int transportCost;
