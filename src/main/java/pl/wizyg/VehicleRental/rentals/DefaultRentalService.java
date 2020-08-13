@@ -22,12 +22,12 @@ public class DefaultRentalService implements RentalService {
 
     @Override
     public List<Rental> getClientRentals(int id) {
-        return rentalRepository.findAllByClient_Id(id);
+        return rentalRepository.findAllByCustomer_Id(id);
     }
 
     @Override
     public List<Rental> getClientRentals(String email) {
-        return rentalRepository.findAllByClient_Email(email);
+        return rentalRepository.findAllByCustomer_Email(email);
     }
 
     @Override
@@ -37,8 +37,13 @@ public class DefaultRentalService implements RentalService {
 
     @Override
     public List<Rental> getVehicleRentals(String licensePlate) {
-        return rentalRepository.findAllByVehicle_LicensePlate(licensePlate);
+        return null;
     }
+
+//    @Override
+//    public List<Rental> getVehicleRentals(String licensePlate) {
+//        return rentalRepository.findAllByVehicle_LicensePlate(licensePlate);
+//    }
 
     @Override
     public List<Rental> getRentalsByStartDate(LocalDate startDate) {
@@ -52,11 +57,11 @@ public class DefaultRentalService implements RentalService {
 
     @Override
     public Rental getRentalByClientIdAndStartDate(int id, LocalDate startDate) throws RentalNotFoundException {
-        return rentalRepository.findByClient_IdAndStartDate(id, startDate).orElseThrow(() -> new RentalNotFoundException());
+        return rentalRepository.findByCustomer_IdAndStartDate(id, startDate).orElseThrow(RentalNotFoundException::new);
     }
 
     @Override
     public Rental getRentalByClientIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException {
-        return rentalRepository.findByClient_IdAndEndDate(id, endDate).orElseThrow(() -> new RentalNotFoundException());
+        return rentalRepository.findByCustomer_IdAndEndDate(id, endDate).orElseThrow(RentalNotFoundException::new);
     }
 }

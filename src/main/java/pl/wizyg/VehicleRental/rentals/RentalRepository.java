@@ -12,16 +12,14 @@ public interface RentalRepository extends JpaRepository<Rental, Integer> {
 
     List<Rental> findAllByEndDate(LocalDate endDate);
 
-    List<Rental> findAllByClient_Id(Integer clientId);
+    List<Rental> findAllByCustomer_Id(Integer clientId);
 
     List<Rental> findAllByVehicle_Id(Integer vehicleId);
 
-    List<Rental> findAllByVehicle_LicensePlate(String licensePlate);
+    List<Rental> findAllByCustomer_Email(String email);
 
-    List<Rental> findAllByClient_Email(String email);
+    Optional<Rental> findByCustomer_IdAndStartDate(Integer id, LocalDate startDate);
 
-    Optional<Rental> findByClient_IdAndStartDate(Integer id, LocalDate startDate);
-
-    Optional<Rental> findByClient_IdAndEndDate(Integer id, LocalDate endDate);
+    Optional<Rental> findByCustomer_IdAndEndDate(Integer id, LocalDate endDate);
 
 }

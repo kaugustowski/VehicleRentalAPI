@@ -10,5 +10,9 @@ import javax.persistence.Entity;
 @Entity
 public class Car extends RoadVehicle {
 
+    private int numberOfSeats;
+
+    private boolean isAirConditioned;
+
 
 }

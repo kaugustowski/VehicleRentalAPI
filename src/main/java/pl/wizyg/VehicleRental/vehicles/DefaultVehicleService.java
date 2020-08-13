@@ -33,9 +33,10 @@ public class DefaultVehicleService implements VehicleService {
         );
     }
 
+
     @Override
-    public Vehicle getVehicle(String licPlate) {
-        return vehicleRepository.findByLicensePlate(licPlate).orElseThrow();
+    public RoadVehicle getVehicle(String licPlate) {
+        return roadVehicleRepository.findByLicensePlate(licPlate).orElseThrow();
     }
 
     @Override

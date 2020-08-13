@@ -31,9 +31,11 @@ public class Rental {
     private boolean withTransport;
 
     @OneToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToOne
+    @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
     public int getRentalDays() {

@@ -9,7 +9,7 @@ public interface VehicleService {
 
     Vehicle getVehicle(int id);
 
-    Vehicle getVehicle(String licPlate);
+    RoadVehicle getVehicle(String licPlate);
 
     List<Vehicle> getVehicles();
 
