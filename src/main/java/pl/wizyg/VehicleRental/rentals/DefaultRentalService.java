@@ -1,6 +1,9 @@
 package pl.wizyg.VehicleRental.rentals;
 
 import org.springframework.stereotype.Service;
+import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
+import pl.wizyg.VehicleRental.customers.CustomerService;
+import pl.wizyg.VehicleRental.vehicles.VehicleService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,8 +14,19 @@ public class DefaultRentalService implements RentalService {
     final
     RentalRepository rentalRepository;
 
-    public DefaultRentalService(RentalRepository rentalRepository) {
+    final VehicleService vehicleService;
+
+    final CustomerService customerService;
+
+    public DefaultRentalService(RentalRepository rentalRepository, VehicleService vehicleService, CustomerService customerService) {
         this.rentalRepository = rentalRepository;
+        this.vehicleService = vehicleService;
+        this.customerService = customerService;
+    }
+
+    @Override
+    public Rental getRental(int id) {
+        return rentalRepository.findById(id).orElseThrow();
     }
 
     @Override
@@ -21,12 +35,23 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public List<Rental> getClientRentals(int id) {
+    public Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException {
+        Rental rental = new Rental(rentalDTO.getStartDate(),
+                rentalDTO.getEndDate(),
+                rentalDTO.isWithTransport(),
+                customerService.getCustomer(rentalDTO.getCustomerId()),
+                vehicleService.getVehicle(rentalDTO.getVehicleId()));
+
+        return rentalRepository.save(rental);
+    }
+
+    @Override
+    public List<Rental> getCustomerRentals(int id) {
         return rentalRepository.findAllByCustomer_Id(id);
     }
 
     @Override
-    public List<Rental> getClientRentals(String email) {
+    public List<Rental> getCustomerRentals(String email) {
         return rentalRepository.findAllByCustomer_Email(email);
     }
 
@@ -39,11 +64,6 @@ public class DefaultRentalService implements RentalService {
     public List<Rental> getVehicleRentals(String licensePlate) {
         return null;
     }
-
-//    @Override
-//    public List<Rental> getVehicleRentals(String licensePlate) {
-//        return rentalRepository.findAllByVehicle_LicensePlate(licensePlate);
-//    }
 
     @Override
     public List<Rental> getRentalsByStartDate(LocalDate startDate) {

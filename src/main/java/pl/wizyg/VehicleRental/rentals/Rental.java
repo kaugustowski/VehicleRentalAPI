@@ -1,6 +1,7 @@
 package pl.wizyg.VehicleRental.rentals;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.wizyg.VehicleRental.customers.Customer;
 import pl.wizyg.VehicleRental.vehicles.Vehicle;
@@ -12,21 +13,25 @@ import java.time.LocalDate;
 import static java.time.temporal.ChronoUnit.DAYS;
 
 @Data
+@NoArgsConstructor
 @Entity
 @Table(name = "rental")
 @ValidRentalDates(message = "End date must not be before start date")
 public class Rental {
 
-    @NotNull
-    @Column(name = "start_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    LocalDate startDate;
-    @Column(name = "end_date")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    LocalDate endDate;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @NotNull
+    @Column(name = "start_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate endDate;
+
     @Column(name = "withTransport")
     private boolean withTransport;
 
@@ -38,7 +43,16 @@ public class Rental {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    public int getRentalDays() {
+
+    public Rental(@NotNull LocalDate startDate, LocalDate endDate, boolean withTransport, Customer customer, Vehicle vehicle) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.withTransport = withTransport;
+        this.customer = customer;
+        this.vehicle = vehicle;
+    }
+
+    public int getNumberOfRentalDays() {
         return (int) (DAYS.between(startDate, endDate) + 1);
     }
 
@@ -55,7 +69,7 @@ public class Rental {
     }
 
     public int getRentalCost() {
-        return getRentalDays() * vehicle.getDailyRentalPrice();
+        return getNumberOfRentalDays() * vehicle.getDailyRentalPrice();
     }
 
 

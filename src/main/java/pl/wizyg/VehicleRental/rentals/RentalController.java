@@ -1,15 +1,14 @@
 package pl.wizyg.VehicleRental.rentals;
 
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/rental")
+@RequestMapping("/rentals")
 public class RentalController {
 
     final
@@ -19,20 +18,27 @@ public class RentalController {
         this.rentalService = rentalService;
     }
 
-    @GetMapping("/list/all")
+    @GetMapping
     List<Rental> getAllRentals() {
         return rentalService.getAllRentals();
     }
 
-    @GetMapping("/list")
-    List<Rental> getAllClientRentals(@RequestParam int id) {
-        return rentalService.getClientRentals(id);
+    @GetMapping("/customer/{customerId}")
+    List<Rental> getAllCustomerRentals(@PathVariable int customerId) {
+        return rentalService.getCustomerRentals(customerId);
     }
 
-//    @GetMapping("/list")
-//    List<Rental> getAllRentals(@RequestParam String email) {
-//        return rentalService.getClientRentals(email);
-//    }
+    @GetMapping("/list")
+    List<Rental> getCustomerRentalsByEmail(@RequestParam String email) {
+        return rentalService.getCustomerRentals(email);
+    }
+
+    @PostMapping(produces = {
+            MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    Rental addRental(@RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException {
+        return rentalService.addRental(rentalDTO);
+    }
 
 
 }

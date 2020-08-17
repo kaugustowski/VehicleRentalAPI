@@ -1,15 +1,21 @@
 package pl.wizyg.VehicleRental.rentals;
 
+import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public interface RentalService {
 
+    Rental getRental(int id);
+
     List<Rental> getAllRentals();
 
-    List<Rental> getClientRentals(int id);
+    Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException;
 
-    List<Rental> getClientRentals(String email);
+    List<Rental> getCustomerRentals(int id);
+
+    List<Rental> getCustomerRentals(String email);
 
     List<Rental> getVehicleRentals(int id);
 
