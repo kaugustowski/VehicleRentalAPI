@@ -4,12 +4,13 @@ import java.util.List;
 
 public interface CustomerService {
 
-    Customer getClient(int id) throws CustomerNotFoundException;
+    Customer getCustomer(int id) throws CustomerNotFoundException;
 
-    List<Customer> getClients();
+    List<Customer> getCustomers();
 
-    Customer addClient(Customer customer);
+    Customer addCustomer(Customer customer);
 
-    void deleteClient(int id) throws CustomerNotFoundException;
+    void deleteCustomer(int id) throws CustomerNotFoundException;
 
+    Customer updateCustomer(int customerId, Customer newCustomer) throws CustomerNotFoundException;
 }

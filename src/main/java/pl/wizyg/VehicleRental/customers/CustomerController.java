@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("/customers")
 public class CustomerController {
 
     final
@@ -16,30 +16,32 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @GetMapping("/")
-    public Customer getName(@RequestParam int clientId) throws CustomerNotFoundException {
-        return customerService.getClient(clientId);
+    @GetMapping("/{customerId}")
+    public Customer getName(@PathVariable int customerId) throws CustomerNotFoundException {
+        return customerService.getCustomer(customerId);
     }
 
     @PostMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public Customer addClient(@RequestBody Customer newCustomer) {
-        return customerService.addClient(newCustomer);
+        return customerService.addCustomer(newCustomer);
     }
 
-    @DeleteMapping("/")
-    void deleteClient(@RequestParam int clientId) throws CustomerNotFoundException {
-        customerService.deleteClient(clientId);
+    @DeleteMapping("/{customerId}")
+    public void deleteClient(@PathVariable int customerId) throws CustomerNotFoundException {
+        customerService.deleteCustomer(customerId);
     }
 
-    @RequestMapping("/list")
+    @PatchMapping(value = "/{customerId}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public Customer updateCustomer(@PathVariable int customerId, @RequestBody Customer newCustomer) throws CustomerNotFoundException {
+        return customerService.updateCustomer(customerId, newCustomer);
+    }
+
+    @RequestMapping
     public List<Customer> getClients() {
-        List<Customer> customers = customerService.getClients();
 
-        return customers;
+        return customerService.getCustomers();
     }
-
-
 
 
 }

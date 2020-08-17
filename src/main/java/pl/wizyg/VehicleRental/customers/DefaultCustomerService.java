@@ -15,22 +15,37 @@ public class DefaultCustomerService implements CustomerService {
     }
 
     @Override
-    public Customer getClient(int id) throws CustomerNotFoundException {
+    public Customer getCustomer(int id) throws CustomerNotFoundException {
         return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException("Couldn't find customer with id: " + id));
     }
 
     @Override
-    public List<Customer> getClients() {
+    public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
 
+
     @Override
-    public Customer addClient(Customer customer) {
+    public Customer addCustomer(Customer customer) {
         return customerRepository.save(customer);
     }
 
     @Override
-    public void deleteClient(int id) throws CustomerNotFoundException {
-        customerRepository.delete(getClient(id));
+    public void deleteCustomer(int id) throws CustomerNotFoundException {
+        customerRepository.delete(getCustomer(id));
+    }
+
+    @Override
+    public Customer updateCustomer(int customerId, Customer newCustomer) throws CustomerNotFoundException {
+
+        Customer cust = getCustomer(customerId);
+
+        cust.setEmail(newCustomer.getEmail() != null ? newCustomer.getEmail() : cust.getEmail());
+        cust.setFirstName(newCustomer.getFirstName() != null ? newCustomer.getFirstName() : cust.getFirstName());
+        cust.setLastName(newCustomer.getLastName() != null ? newCustomer.getLastName() : cust.getLastName());
+
+        customerRepository.save(cust);
+
+        return cust;
     }
 }
