@@ -10,8 +10,8 @@ import javax.validation.constraints.Email;
 @Table(name = "customer")
 public class Customer {
 
-    @Id()
-    @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Integer id;
     @Column(name = "first_name")

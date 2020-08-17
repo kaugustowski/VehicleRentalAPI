@@ -16,11 +16,20 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public Customer getName(@RequestParam int clientId) throws CustomerNotFoundException {
-        Customer customer = customerService.getClient(clientId);
+        return customerService.getClient(clientId);
+    }
 
-        return customer;
+    @PostMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public Customer addClient(@RequestBody Customer newCustomer) {
+        return customerService.addClient(newCustomer);
+    }
+
+    @DeleteMapping("/")
+    void deleteClient(@RequestParam int clientId) throws CustomerNotFoundException {
+        customerService.deleteClient(clientId);
     }
 
     @RequestMapping("/list")
@@ -30,15 +39,7 @@ public class CustomerController {
         return customers;
     }
 
-    @PostMapping(value = "/add", produces = {MediaType.APPLICATION_JSON_VALUE})
-    @ResponseBody
-    public Customer addClient(@RequestBody Customer newCustomer) {
-        return customerService.addClient(newCustomer);
-    }
 
-    @DeleteMapping("/delete")
-    void deleteClient(@RequestParam int clientId) throws CustomerNotFoundException {
-        customerService.deleteClient(clientId);
-    }
+
 
 }
