@@ -27,10 +27,9 @@ public class DefaultVehicleService implements VehicleService {
     }
 
     @Override
-    public Vehicle getVehicle(int id) {
+    public Vehicle getVehicle(int id) throws VehicleNotFoundException {
         return vehicleRepository.findById(id).orElseThrow(
-
-        );
+                () -> new VehicleNotFoundException("Vehicle with id: " + id + " not found"));
     }
 
 

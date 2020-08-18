@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface VehicleService {
 
-    Vehicle getVehicle(int id);
+    Vehicle getVehicle(int id) throws VehicleNotFoundException;
 
     RoadVehicle getVehicle(String licPlate);
 
