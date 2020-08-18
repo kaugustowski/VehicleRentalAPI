@@ -1,6 +1,7 @@
 package pl.wizyg.VehicleRental.rentals;
 
 import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
+import pl.wizyg.VehicleRental.vehicles.VehicleNotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface RentalService {
 
     List<Rental> getAllRentals();
 
-    Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException;
+    Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException;
 
     List<Rental> getCustomerRentals(int id);
 
@@ -29,4 +30,7 @@ public interface RentalService {
 
     Rental getRentalByClientIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException;
 
+    void deleteRental(int rentalId);
+
+    Rental updateRental(int rentalId, RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException;
 }

@@ -3,6 +3,7 @@ package pl.wizyg.VehicleRental.rentals;
 import org.springframework.stereotype.Service;
 import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
 import pl.wizyg.VehicleRental.customers.CustomerService;
+import pl.wizyg.VehicleRental.vehicles.VehicleNotFoundException;
 import pl.wizyg.VehicleRental.vehicles.VehicleService;
 
 import java.time.LocalDate;
@@ -35,10 +36,10 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException {
+    public Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
         Rental rental = new Rental(rentalDTO.getStartDate(),
                 rentalDTO.getEndDate(),
-                rentalDTO.isWithTransport(),
+                rentalDTO.getWithTransport(),
                 customerService.getCustomer(rentalDTO.getCustomerId()),
                 vehicleService.getVehicle(rentalDTO.getVehicleId()));
 
@@ -83,5 +84,30 @@ public class DefaultRentalService implements RentalService {
     @Override
     public Rental getRentalByClientIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException {
         return rentalRepository.findByCustomer_IdAndEndDate(id, endDate).orElseThrow(RentalNotFoundException::new);
+    }
+
+    @Override
+    public void deleteRental(int rentalId) {
+        Rental rental = getRental(rentalId);
+        rentalRepository.delete(rental);
+    }
+
+    @Override
+    public Rental updateRental(int rentalId, RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
+
+        Rental rental = getRental(rentalId);
+
+        if (rentalDTO.getCustomerId() != null)
+            rental.setCustomer(customerService.getCustomer(rentalDTO.getCustomerId()));
+        if (rentalDTO.getVehicleId() != null)
+            rental.setVehicle(vehicleService.getVehicle(rentalDTO.getVehicleId()));
+        if (rentalDTO.getStartDate() != null)
+            rental.setStartDate(rentalDTO.getStartDate());
+        if (rentalDTO.getEndDate() != null)
+            rental.setEndDate(rentalDTO.getEndDate());
+        if (rentalDTO.getWithTransport() != null)
+            rental.setWithTransport(rentalDTO.getWithTransport());
+
+        return rental;
     }
 }

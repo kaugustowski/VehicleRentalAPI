@@ -14,7 +14,7 @@ public class RentalDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
-    private boolean withTransport;
+    private Boolean withTransport;
 
     private Integer customerId;
 

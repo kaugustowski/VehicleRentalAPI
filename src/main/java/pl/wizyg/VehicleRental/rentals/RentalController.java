@@ -4,6 +4,7 @@ package pl.wizyg.VehicleRental.rentals;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
+import pl.wizyg.VehicleRental.vehicles.VehicleNotFoundException;
 
 import java.util.List;
 
@@ -36,8 +37,20 @@ public class RentalController {
     @PostMapping(produces = {
             MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    Rental addRental(@RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException {
+    Rental addRental(@RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
         return rentalService.addRental(rentalDTO);
+    }
+
+    @DeleteMapping
+    @RequestMapping("/{rentalId}")
+    void deleteRental(@PathVariable int rentalId) {
+        rentalService.deleteRental(rentalId);
+    }
+
+    @PatchMapping
+    @RequestMapping("/{rentalId}")
+    Rental updateRental(@PathVariable int rentalId, @RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
+        return rentalService.updateRental(rentalId, rentalDTO);
     }
 
 
