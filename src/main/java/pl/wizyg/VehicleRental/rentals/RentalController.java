@@ -41,14 +41,12 @@ public class RentalController {
         return rentalService.addRental(rentalDTO);
     }
 
-    @DeleteMapping
-    @RequestMapping("/{rentalId}")
+    @DeleteMapping(value = "/{rentalId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     void deleteRental(@PathVariable int rentalId) {
         rentalService.deleteRental(rentalId);
     }
 
-    @PatchMapping
-    @RequestMapping("/{rentalId}")
+    @PatchMapping(value = "/{rentalId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     Rental updateRental(@PathVariable int rentalId, @RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
         return rentalService.updateRental(rentalId, rentalDTO);
     }
