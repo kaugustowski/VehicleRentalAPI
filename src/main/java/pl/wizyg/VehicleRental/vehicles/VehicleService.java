@@ -17,4 +17,7 @@ public interface VehicleService {
 
     List<IndustrialVehicle> getIndustrialVehicles();
 
+    Vehicle addVehicle(Vehicle vehicle);
+
+    Vehicle updateVehicle(int vehicleId, Vehicle vehicle) throws VehicleNotFoundException;
 }

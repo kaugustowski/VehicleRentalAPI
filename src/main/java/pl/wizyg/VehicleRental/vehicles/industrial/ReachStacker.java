@@ -17,5 +17,4 @@ public class ReachStacker extends IndustrialVehicle {
     @Column(name = "lift_weight_kg")
     private int liftWeight;
 
-
 }

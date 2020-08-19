@@ -52,4 +52,26 @@ public class DefaultVehicleService implements VehicleService {
     public List<IndustrialVehicle> getIndustrialVehicles() {
         return industrialVehicleRepository.findAll();
     }
+
+    @Override
+    public Vehicle addVehicle(Vehicle vehicle) {
+        return vehicleRepository.save(vehicle);
+    }
+
+    @Override
+    public Vehicle updateVehicle(int vehicleId, Vehicle vehicle) throws VehicleNotFoundException {
+        Vehicle veh = getVehicle(vehicleId);
+
+        if (vehicle.getMake() != null)
+            veh.setMake(vehicle.getMake());
+        if (vehicle.getModel() != null)
+            veh.setModel(vehicle.getModel());
+        if (vehicle.getDailyRentalPrice() != null)
+            veh.setDailyRentalPrice(vehicle.getDailyRentalPrice());
+        if (vehicle.getProductionYear() != null)
+            veh.setProductionYear(vehicle.getProductionYear());
+
+
+        return vehicleRepository.save(veh);
+    }
 }

@@ -1,5 +1,6 @@
 package pl.wizyg.VehicleRental.vehicles.road;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,6 +11,7 @@ import javax.persistence.Table;
 @Entity
 @Data
 @Table(name = "motorcycle")
+@JsonTypeName("motorcycle")
 public class Motorcycle extends RoadVehicle {
 
 
