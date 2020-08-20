@@ -34,13 +34,22 @@ public class DefaultVehicleService implements VehicleService {
 
 
     @Override
-    public RoadVehicle getVehicle(String licPlate) {
-        return roadVehicleRepository.findByLicensePlate(licPlate).orElseThrow();
+    public RoadVehicle getVehicle(String licPlate) throws VehicleNotFoundException {
+        return roadVehicleRepository.findByLicensePlate(licPlate).orElseThrow(
+                () -> new VehicleNotFoundException("Vehicle with licplate: " + licPlate + " not found"));
     }
+
 
     @Override
     public List<Vehicle> getVehicles() {
         return vehicleRepository.findAll();
+    }
+
+    @Override
+    public void deleteVehicle(int vehicleId) throws VehicleNotFoundException {
+        Vehicle vehicle = getVehicle(vehicleId);
+
+        vehicleRepository.delete(vehicle);
     }
 
     @Override

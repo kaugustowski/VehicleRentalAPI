@@ -9,7 +9,7 @@ public interface VehicleService {
 
     Vehicle getVehicle(int id) throws VehicleNotFoundException;
 
-    RoadVehicle getVehicle(String licPlate);
+    RoadVehicle getVehicle(String licPlate) throws VehicleNotFoundException;
 
     List<Vehicle> getVehicles();
 
@@ -20,4 +20,6 @@ public interface VehicleService {
     Vehicle addVehicle(Vehicle vehicle);
 
     Vehicle updateVehicle(int vehicleId, Vehicle vehicle) throws VehicleNotFoundException;
+
+    void deleteVehicle(int vehicleId) throws VehicleNotFoundException;
 }

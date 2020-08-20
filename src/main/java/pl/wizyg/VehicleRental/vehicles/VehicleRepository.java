@@ -12,6 +12,4 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
 
     List<Vehicle> findAllByProductionYear(int productionYear);
 
-
-
 }
