@@ -16,7 +16,8 @@ public class DefaultCustomerService implements CustomerService {
 
     @Override
     public Customer getCustomer(int id) throws CustomerNotFoundException {
-        return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException("Couldn't find customer with id: " + id));
+        return customerRepository.findById(id).orElseThrow(
+                () -> new CustomerNotFoundException("Couldn't find customer with id: " + id));
     }
 
     @Override

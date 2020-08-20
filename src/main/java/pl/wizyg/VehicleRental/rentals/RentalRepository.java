@@ -12,14 +12,25 @@ public interface RentalRepository extends JpaRepository<Rental, Integer> {
 
     List<Rental> findAllByEndDate(LocalDate endDate);
 
-    List<Rental> findAllByCustomer_Id(Integer clientId);
+    List<Rental> findAllByCustomer_Id(Integer customerId);
 
     List<Rental> findAllByVehicle_Id(Integer vehicleId);
 
     List<Rental> findAllByCustomer_Email(String email);
 
-    Optional<Rental> findByCustomer_IdAndStartDate(Integer id, LocalDate startDate);
+    Optional<Rental> findByCustomer_IdAndStartDate(Integer customerId, LocalDate startDate);
 
-    Optional<Rental> findByCustomer_IdAndEndDate(Integer id, LocalDate endDate);
+    Optional<Rental> findByCustomer_IdAndEndDate(Integer customerId, LocalDate endDate);
+
+    List<Rental> findByCustomer_IdAndStartDateAfter(Integer customerId, LocalDate startDate);
+
+    List<Rental> findByCustomer_IdAndEndDateAfter(Integer customerId, LocalDate endDate);
+
+    List<Rental> findByCustomer_IdAndStartDateBefore(Integer customerId, LocalDate startDate);
+
+    List<Rental> findByCustomer_IdAndEndDateBefore(Integer customerId, LocalDate endDate);
+
+//    @Query("Select r from Rental r Where r.vehicle instanceof RoadVehicle type(RoadVehicle.class) like :lic")
+//    List<Rental> findRentalsByLicPlate(@Param("lic") String licPlate);
 
 }

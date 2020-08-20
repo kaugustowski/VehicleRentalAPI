@@ -57,13 +57,8 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public List<Rental> getVehicleRentals(int id) {
-        return rentalRepository.findAllByVehicle_Id(id);
-    }
-
-    @Override
-    public List<Rental> getVehicleRentals(String licensePlate) {
-        return null;
+    public List<Rental> getVehicleRentals(int vehicleId) {
+        return rentalRepository.findAllByVehicle_Id(vehicleId);
     }
 
     @Override
@@ -77,12 +72,12 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public Rental getRentalByClientIdAndStartDate(int id, LocalDate startDate) throws RentalNotFoundException {
+    public Rental getRentalByCustomerIdAndStartDate(int id, LocalDate startDate) throws RentalNotFoundException {
         return rentalRepository.findByCustomer_IdAndStartDate(id, startDate).orElseThrow(RentalNotFoundException::new);
     }
 
     @Override
-    public Rental getRentalByClientIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException {
+    public Rental getRentalByCustomerIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException {
         return rentalRepository.findByCustomer_IdAndEndDate(id, endDate).orElseThrow(RentalNotFoundException::new);
     }
 
@@ -109,5 +104,25 @@ public class DefaultRentalService implements RentalService {
             rental.setWithTransport(rentalDTO.getWithTransport());
 
         return rental;
+    }
+
+    @Override
+    public List<Rental> getRentalsByCustomerIdAndStartDateAfter(int customerId, LocalDate startDate) {
+        return rentalRepository.findByCustomer_IdAndStartDateAfter(customerId, startDate);
+    }
+
+    @Override
+    public List<Rental> getRentalsByCustomerIdAndEndDateAfter(int customerId, LocalDate endDate) {
+        return rentalRepository.findByCustomer_IdAndEndDateAfter(customerId, endDate);
+    }
+
+    @Override
+    public List<Rental> getRentalsByCustomerIdAndStartDateBefore(int customerId, LocalDate startDate) {
+        return rentalRepository.findByCustomer_IdAndStartDateBefore(customerId, startDate);
+    }
+
+    @Override
+    public List<Rental> getRentalsByCustomerIdAndEndDateBefore(int customerId, LocalDate endDate) {
+        return rentalRepository.findByCustomer_IdAndEndDateBefore(customerId, endDate);
     }
 }

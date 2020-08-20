@@ -18,17 +18,23 @@ public interface RentalService {
 
     List<Rental> getCustomerRentals(String email);
 
-    List<Rental> getVehicleRentals(int id);
-
-    List<Rental> getVehicleRentals(String licensePlate);
+    List<Rental> getVehicleRentals(int vehicleId);
 
     List<Rental> getRentalsByStartDate(LocalDate startDate);
 
     List<Rental> getRentalsByEndDate(LocalDate endDate);
 
-    Rental getRentalByClientIdAndStartDate(int id, LocalDate startDate) throws RentalNotFoundException;
+    Rental getRentalByCustomerIdAndStartDate(int id, LocalDate startDate) throws RentalNotFoundException;
 
-    Rental getRentalByClientIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException;
+    Rental getRentalByCustomerIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException;
+
+    List<Rental> getRentalsByCustomerIdAndStartDateAfter(int id, LocalDate startDate);
+
+    List<Rental> getRentalsByCustomerIdAndEndDateAfter(int id, LocalDate endDate);
+
+    List<Rental> getRentalsByCustomerIdAndStartDateBefore(int id, LocalDate startDate);
+
+    List<Rental> getRentalsByCustomerIdAndEndDateBefore(int id, LocalDate endDate);
 
     void deleteRental(int rentalId);
 
