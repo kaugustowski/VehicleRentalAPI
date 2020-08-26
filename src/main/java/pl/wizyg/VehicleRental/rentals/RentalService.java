@@ -12,7 +12,7 @@ public interface RentalService {
 
     List<Rental> getAllRentals();
 
-    Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException;
+    Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalsOverlapException;
 
     List<Rental> getCustomerRentals(int id);
 

@@ -36,14 +36,25 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
+    public Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalsOverlapException {
         Rental rental = new Rental(rentalDTO.getStartDate(),
                 rentalDTO.getEndDate(),
                 rentalDTO.getWithTransport(),
                 customerService.getCustomer(rentalDTO.getCustomerId()),
                 vehicleService.getVehicle(rentalDTO.getVehicleId()));
 
-        return rentalRepository.save(rental);
+        List<Rental> rentals = getOverlappingRentals(rental);
+
+        if (rentals.isEmpty())
+            return rentalRepository.save(rental);
+        else
+            throw new RentalsOverlapException("Rental overlaps with existing one!");
+    }
+
+    public List<Rental> getOverlappingRentals(Rental rental) {
+        return rentalRepository.findAllByVehicle_IdAndStartDateBeforeAndEndDateAfter(rental.getVehicle().getId(),
+                rental.getEndDate(),
+                rental.getStartDate());
     }
 
     @Override

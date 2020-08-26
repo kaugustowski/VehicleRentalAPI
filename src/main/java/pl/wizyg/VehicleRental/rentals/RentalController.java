@@ -80,7 +80,7 @@ public class RentalController {
     @PostMapping(produces = {
             MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    Rental addRental(@RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
+    Rental addRental(@RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalsOverlapException {
         return rentalService.addRental(rentalDTO);
     }
 
