@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RentalService {
 
-    Rental getRental(int id);
+    Rental getRental(int id) throws RentalNotFoundException;
 
     List<Rental> getAllRentals();
 
@@ -36,7 +36,7 @@ public interface RentalService {
 
     List<Rental> getRentalsByCustomerIdAndEndDateBefore(int id, LocalDate endDate);
 
-    void deleteRental(int rentalId);
+    void deleteRental(int rentalId) throws RentalNotFoundException;
 
-    Rental updateRental(int rentalId, RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException;
+    Rental updateRental(int rentalId, RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalNotFoundException;
 }

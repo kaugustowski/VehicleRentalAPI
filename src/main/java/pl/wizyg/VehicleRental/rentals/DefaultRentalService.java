@@ -26,8 +26,8 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public Rental getRental(int id) {
-        return rentalRepository.findById(id).orElseThrow();
+    public Rental getRental(int id) throws RentalNotFoundException {
+        return rentalRepository.findById(id).orElseThrow(() -> new RentalNotFoundException("Rental with id:" + id + " not found"));
     }
 
     @Override
@@ -93,13 +93,13 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public void deleteRental(int rentalId) {
+    public void deleteRental(int rentalId) throws RentalNotFoundException {
         Rental rental = getRental(rentalId);
         rentalRepository.delete(rental);
     }
 
     @Override
-    public Rental updateRental(int rentalId, RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
+    public Rental updateRental(int rentalId, RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalNotFoundException {
 
         Rental rental = getRental(rentalId);
 

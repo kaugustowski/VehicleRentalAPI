@@ -26,6 +26,11 @@ public class RentalController {
         return rentalService.getAllRentals();
     }
 
+    @GetMapping("/{rentalId}")
+    Rental getRental(@PathVariable int rentalId) throws RentalNotFoundException {
+        return rentalService.getRental(rentalId);
+    }
+
     @GetMapping("/customers/{customerId}")
     List<Rental> getAllCustomerRentals(@PathVariable int customerId) {
         return rentalService.getCustomerRentals(customerId);
@@ -85,12 +90,12 @@ public class RentalController {
     }
 
     @DeleteMapping(value = "/{rentalId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    void deleteRental(@PathVariable int rentalId) {
+    void deleteRental(@PathVariable int rentalId) throws RentalNotFoundException {
         rentalService.deleteRental(rentalId);
     }
 
     @PatchMapping(value = "/{rentalId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    Rental updateRental(@PathVariable int rentalId, @RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException {
+    Rental updateRental(@PathVariable int rentalId, @RequestBody RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalNotFoundException {
         return rentalService.updateRental(rentalId, rentalDTO);
     }
 }
