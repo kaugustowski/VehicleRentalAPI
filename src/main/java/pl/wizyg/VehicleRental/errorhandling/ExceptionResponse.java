@@ -1,8 +1,6 @@
 package pl.wizyg.VehicleRental.errorhandling;
 
-
 public class ExceptionResponse {
-
 
     private final String message;
     private final long timestamp;
