@@ -1,11 +1,15 @@
 package pl.wizyg.VehicleRental.vehicles;
 
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.wizyg.VehicleRental.vehicles.industrial.IndustrialVehicle;
 import pl.wizyg.VehicleRental.vehicles.road.RoadVehicle;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/vehicles")
@@ -24,8 +28,10 @@ public class VehicleController {
     }
 
     @GetMapping(value = "/{vehicleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Vehicle getVehicle(@PathVariable int vehicleId) throws VehicleNotFoundException {
-        return vehicleService.getVehicle(vehicleId);
+    public EntityModel<Vehicle> getVehicle(@PathVariable int vehicleId) throws VehicleNotFoundException {
+        Vehicle vehicle = vehicleService.getVehicle(vehicleId);
+        return EntityModel.of(vehicle,
+                linkTo(methodOn(VehicleController.class).getVehicle(vehicleId)).withSelfRel());
     }
 
     @GetMapping(value = "/road", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -34,8 +40,10 @@ public class VehicleController {
     }
 
     @GetMapping(value = "/road/{licPlate}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public RoadVehicle getRoadVehicleByLicPlate(@PathVariable String licPlate) throws VehicleNotFoundException {
-        return vehicleService.getVehicle(licPlate);
+    public EntityModel<Vehicle> getRoadVehicleByLicPlate(@PathVariable String licPlate) throws VehicleNotFoundException {
+        Vehicle vehicle = vehicleService.getVehicle(licPlate);
+        return EntityModel.of(vehicle,
+                linkTo(methodOn(VehicleController.class).getVehicle(vehicle.getId())).withSelfRel());
     }
 
     @GetMapping(value = "/industrial", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -49,14 +57,17 @@ public class VehicleController {
     }
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Vehicle addVehicle(@RequestBody Vehicle vehicle) {
-        return vehicleService.addVehicle(vehicle);
+    public EntityModel<Vehicle> addVehicle(@RequestBody Vehicle newVehicle) throws VehicleNotFoundException {
+        Vehicle vehicle = vehicleService.addVehicle(newVehicle);
+        return EntityModel.of(vehicle,
+                linkTo(methodOn(VehicleController.class).getVehicle(vehicle.getId())).withSelfRel());
     }
 
     @PatchMapping(value = "/{vehicleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Vehicle updateVehicle(@RequestBody Vehicle vehicle, @PathVariable int vehicleId) throws VehicleNotFoundException {
-        return vehicleService.updateVehicle(vehicleId, vehicle);
+    public EntityModel<Vehicle> updateVehicle(@RequestBody Vehicle newVehicle, @PathVariable int vehicleId) throws VehicleNotFoundException {
+        Vehicle vehicle = vehicleService.updateVehicle(vehicleId, newVehicle);
+
+        return EntityModel.of(vehicle,
+                linkTo(methodOn(VehicleController.class).getVehicle(vehicle.getId())).withSelfRel());
     }
-
-
 }

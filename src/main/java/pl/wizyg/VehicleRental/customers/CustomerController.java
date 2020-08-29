@@ -1,9 +1,13 @@
 package pl.wizyg.VehicleRental.customers;
 
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/customers")
@@ -17,14 +21,19 @@ public class CustomerController {
     }
 
     @GetMapping("/{customerId}")
-    public Customer getName(@PathVariable int customerId) throws CustomerNotFoundException {
-        return customerService.getCustomer(customerId);
+    public EntityModel<Customer> getCustomer(@PathVariable int customerId) throws CustomerNotFoundException {
+        Customer customer = customerService.getCustomer(customerId);
+        return EntityModel.of(customer,
+                linkTo(methodOn(CustomerController.class).getCustomer(customerId)).withSelfRel());
     }
 
-    @PostMapping(value = "/", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public Customer addClient(@RequestBody Customer newCustomer) {
-        return customerService.addCustomer(newCustomer);
+    public EntityModel<Customer> addClient(@RequestBody Customer newCustomer) throws CustomerNotFoundException {
+
+        Customer customer = customerService.addCustomer(newCustomer);
+        return EntityModel.of(customer,
+                linkTo(methodOn(CustomerController.class).getCustomer(customer.getId())).withSelfRel());
     }
 
     @DeleteMapping("/{customerId}")
@@ -33,15 +42,16 @@ public class CustomerController {
     }
 
     @PatchMapping(value = "/{customerId}", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public Customer updateCustomer(@PathVariable int customerId, @RequestBody Customer newCustomer) throws CustomerNotFoundException {
-        return customerService.updateCustomer(customerId, newCustomer);
+    public EntityModel<Customer> updateCustomer(@PathVariable int customerId, @RequestBody Customer newCustomer) throws CustomerNotFoundException {
+
+        Customer customer = customerService.updateCustomer(customerId, newCustomer);
+
+        return EntityModel.of(customer,
+                linkTo(methodOn(CustomerController.class).getCustomer(customerId)).withSelfRel());
     }
 
-    @RequestMapping
+    @GetMapping
     public List<Customer> getClients() {
-
         return customerService.getCustomers();
     }
-
-
 }
