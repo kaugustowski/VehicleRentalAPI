@@ -29,7 +29,7 @@ public class CustomerController {
 
     @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public EntityModel<Customer> addClient(@RequestBody Customer newCustomer) throws CustomerNotFoundException {
+    public EntityModel<Customer> addCustomer(@RequestBody Customer newCustomer) throws CustomerNotFoundException {
 
         Customer customer = customerService.addCustomer(newCustomer);
         return EntityModel.of(customer,
@@ -37,7 +37,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{customerId}")
-    public void deleteClient(@PathVariable int customerId) throws CustomerNotFoundException {
+    public void deleteCustomer(@PathVariable int customerId) throws CustomerNotFoundException {
         customerService.deleteCustomer(customerId);
     }
 
@@ -51,7 +51,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    public List<Customer> getClients() {
+    public List<Customer> getCustomers() {
         return customerService.getCustomers();
     }
 }

@@ -32,7 +32,7 @@ public class Rental {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endDate;
 
-    @Column(name = "withTransport")
+    @Column(name = "with_transport")
     private boolean withTransport;
 
     @OneToOne
@@ -42,7 +42,6 @@ public class Rental {
     @OneToOne
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
-
 
     public Rental(@NotNull LocalDate startDate, LocalDate endDate, boolean withTransport, Customer customer, Vehicle vehicle) {
         this.startDate = startDate;
@@ -71,6 +70,4 @@ public class Rental {
     public int getRentalCost() {
         return getNumberOfRentalDays() * vehicle.getDailyRentalPrice();
     }
-
-
 }

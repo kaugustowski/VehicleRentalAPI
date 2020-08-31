@@ -66,7 +66,6 @@ public class VehicleController {
     @PatchMapping(value = "/{vehicleId}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public EntityModel<Vehicle> updateVehicle(@RequestBody Vehicle newVehicle, @PathVariable int vehicleId) throws VehicleNotFoundException {
         Vehicle vehicle = vehicleService.updateVehicle(vehicleId, newVehicle);
-
         return EntityModel.of(vehicle,
                 linkTo(methodOn(VehicleController.class).getVehicle(vehicle.getId())).withSelfRel());
     }
