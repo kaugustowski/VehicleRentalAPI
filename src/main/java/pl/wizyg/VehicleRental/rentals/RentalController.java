@@ -64,7 +64,7 @@ public class RentalController {
         return rentalService.getRentalsByEndDate(date);
     }
 
-    @GetMapping(value = "/customers/{customerId}/endDateAfter/", produces = {
+    @GetMapping(value = "/customers/{customerId}/endDateAfter", produces = {
             MediaType.APPLICATION_JSON_VALUE})
     public List<Rental> getRentalsByCustomerIdAndEndDateAfter(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @PathVariable int customerId) {
         return rentalService.getRentalsByCustomerIdAndEndDateAfter(customerId, date);
