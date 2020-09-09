@@ -38,8 +38,8 @@ public class RentalController {
     }
 
     @GetMapping("/customers/{customerId}")
-    public List<Rental> getAllCustomerRentals(@PathVariable int customerId) {
-        return rentalService.getCustomerRentals(customerId);
+    public List<Rental> getAllCustomerRentals(@PathVariable int customerId, CustomerRentalQuery query) {
+        return rentalService.getCustomerRentals(customerId, query);
     }
 
     @GetMapping("/customers/email")
@@ -64,30 +64,6 @@ public class RentalController {
         return rentalService.getRentalsByEndDate(date);
     }
 
-    @GetMapping(value = "/customers/{customerId}/endDateAfter", produces = {
-            MediaType.APPLICATION_JSON_VALUE})
-    public List<Rental> getRentalsByCustomerIdAndEndDateAfter(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @PathVariable int customerId) {
-        return rentalService.getRentalsByCustomerIdAndEndDateAfter(customerId, date);
-    }
-
-    @GetMapping(value = "/customers/{customerId}/endDateBefore", produces = {
-            MediaType.APPLICATION_JSON_VALUE})
-    public List<Rental> getRentalsByCustomerIdEndDateBefore(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @PathVariable int customerId) {
-        return rentalService.getRentalsByCustomerIdAndEndDateBefore(customerId, date);
-    }
-
-    @GetMapping(value = "/customers/{customerId}/startDateAfter", produces = {
-            MediaType.APPLICATION_JSON_VALUE})
-    public List<Rental> getRentalsByCustomerIdAndStartDateAfter(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @PathVariable int customerId) {
-        return rentalService.getRentalsByCustomerIdAndStartDateAfter(customerId, date);
-    }
-
-    @GetMapping(value = "/customers/{customerId}/startDateBefore", produces = {
-            MediaType.APPLICATION_JSON_VALUE})
-    public List<Rental> getRentalsByCustomerIdStartDateBefore(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date, @PathVariable int customerId) {
-        return rentalService.getRentalsByCustomerIdAndStartDateBefore(customerId, date);
-    }
-
     @PostMapping(produces = {
             MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
@@ -108,4 +84,5 @@ public class RentalController {
         return EntityModel.of(rental,
                 linkTo(methodOn(RentalController.class).getRental(rental.getId())).withSelfRel());
     }
+
 }

@@ -14,7 +14,7 @@ public interface RentalService {
 
     Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalsOverlapException;
 
-    List<Rental> getCustomerRentals(int id);
+    List<Rental> getCustomerRentals(int id, CustomerRentalQuery query);
 
     List<Rental> getCustomerRentals(String email);
 
@@ -27,14 +27,6 @@ public interface RentalService {
     Rental getRentalByCustomerIdAndStartDate(int id, LocalDate startDate) throws RentalNotFoundException;
 
     Rental getRentalByCustomerIdAndEndDate(int id, LocalDate endDate) throws RentalNotFoundException;
-
-    List<Rental> getRentalsByCustomerIdAndStartDateAfter(int id, LocalDate startDate);
-
-    List<Rental> getRentalsByCustomerIdAndEndDateAfter(int id, LocalDate endDate);
-
-    List<Rental> getRentalsByCustomerIdAndStartDateBefore(int id, LocalDate startDate);
-
-    List<Rental> getRentalsByCustomerIdAndEndDateBefore(int id, LocalDate endDate);
 
     void deleteRental(int rentalId) throws RentalNotFoundException;
 

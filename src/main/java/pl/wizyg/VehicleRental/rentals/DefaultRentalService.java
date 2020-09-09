@@ -58,7 +58,15 @@ public class DefaultRentalService implements RentalService {
     }
 
     @Override
-    public List<Rental> getCustomerRentals(int id) {
+    public List<Rental> getCustomerRentals(int id, CustomerRentalQuery query) {
+        if (query.getStartDateBefore() != null)
+            return getRentalsByCustomerIdAndStartDateBefore(id, query.getStartDateBefore());
+        if (query.getStartDateAfter() != null)
+            return getRentalsByCustomerIdAndStartDateAfter(id, query.getStartDateAfter());
+        if (query.getEndDateBefore() != null)
+            return getRentalsByCustomerIdAndEndDateBefore(id, query.getEndDateAfter());
+        if (query.getEndDateAfter() != null)
+            return getRentalsByCustomerIdAndEndDateAfter(id, query.getEndDateBefore());
         return rentalRepository.findAllByCustomer_Id(id);
     }
 
@@ -117,23 +125,23 @@ public class DefaultRentalService implements RentalService {
         return rental;
     }
 
-    @Override
-    public List<Rental> getRentalsByCustomerIdAndStartDateAfter(int customerId, LocalDate startDate) {
+
+    private List<Rental> getRentalsByCustomerIdAndStartDateAfter(int customerId, LocalDate startDate) {
         return rentalRepository.findByCustomer_IdAndStartDateAfter(customerId, startDate);
     }
 
-    @Override
-    public List<Rental> getRentalsByCustomerIdAndEndDateAfter(int customerId, LocalDate endDate) {
+
+    private List<Rental> getRentalsByCustomerIdAndEndDateAfter(int customerId, LocalDate endDate) {
         return rentalRepository.findByCustomer_IdAndEndDateAfter(customerId, endDate);
     }
 
-    @Override
-    public List<Rental> getRentalsByCustomerIdAndStartDateBefore(int customerId, LocalDate startDate) {
+
+    private List<Rental> getRentalsByCustomerIdAndStartDateBefore(int customerId, LocalDate startDate) {
         return rentalRepository.findByCustomer_IdAndStartDateBefore(customerId, startDate);
     }
 
-    @Override
-    public List<Rental> getRentalsByCustomerIdAndEndDateBefore(int customerId, LocalDate endDate) {
+
+    private List<Rental> getRentalsByCustomerIdAndEndDateBefore(int customerId, LocalDate endDate) {
         return rentalRepository.findByCustomer_IdAndEndDateBefore(customerId, endDate);
     }
 }
