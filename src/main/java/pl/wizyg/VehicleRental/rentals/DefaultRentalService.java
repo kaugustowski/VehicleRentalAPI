@@ -59,15 +59,20 @@ public class DefaultRentalService implements RentalService {
 
     @Override
     public List<Rental> getCustomerRentals(int id, CustomerRentalQuery query) {
-        if (query.getStartDateBefore() != null)
-            return getRentalsByCustomerIdAndStartDateBefore(id, query.getStartDateBefore());
-        if (query.getStartDateAfter() != null)
-            return getRentalsByCustomerIdAndStartDateAfter(id, query.getStartDateAfter());
-        if (query.getEndDateBefore() != null)
-            return getRentalsByCustomerIdAndEndDateBefore(id, query.getEndDateAfter());
-        if (query.getEndDateAfter() != null)
-            return getRentalsByCustomerIdAndEndDateAfter(id, query.getEndDateBefore());
-        return rentalRepository.findAllByCustomer_Id(id);
+//        if (query.getStartDateBefore() != null)
+//            return getRentalsByCustomerIdAndStartDateBefore(id, query.getStartDateBefore());
+//        if (query.getStartDateAfter() != null)
+//            return getRentalsByCustomerIdAndStartDateAfter(id, query.getStartDateAfter());
+//        if (query.getEndDateBefore() != null)
+//            return getRentalsByCustomerIdAndEndDateBefore(id, query.getEndDateAfter());
+//        if (query.getEndDateAfter() != null)
+//            return getRentalsByCustomerIdAndEndDateAfter(id, query.getEndDateBefore());
+        return rentalRepository.findByCustomer_IdAndStartDateAfterAndStartDateBeforeAndEndDateAfterAndEndDateBefore(
+                id,
+                query.getStartDateAfter(),
+                query.getStartDateBefore(),
+                query.getEndDateAfter(),
+                query.getEndDateBefore());
     }
 
     @Override

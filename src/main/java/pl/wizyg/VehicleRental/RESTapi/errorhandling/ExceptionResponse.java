@@ -1,4 +1,4 @@
-package pl.wizyg.VehicleRental.errorhandling;
+package pl.wizyg.VehicleRental.RESTapi.errorhandling;
 
 public class ExceptionResponse {
 

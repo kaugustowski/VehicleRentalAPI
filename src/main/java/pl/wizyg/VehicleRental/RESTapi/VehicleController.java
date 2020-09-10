@@ -1,8 +1,11 @@
-package pl.wizyg.VehicleRental.vehicles;
+package pl.wizyg.VehicleRental.RESTapi;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import pl.wizyg.VehicleRental.vehicles.Vehicle;
+import pl.wizyg.VehicleRental.vehicles.VehicleNotFoundException;
+import pl.wizyg.VehicleRental.vehicles.VehicleService;
 import pl.wizyg.VehicleRental.vehicles.industrial.IndustrialVehicle;
 import pl.wizyg.VehicleRental.vehicles.road.RoadVehicle;
 

@@ -1,4 +1,4 @@
-package pl.wizyg.VehicleRental.errorhandling;
+package pl.wizyg.VehicleRental.RESTapi.errorhandling;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;

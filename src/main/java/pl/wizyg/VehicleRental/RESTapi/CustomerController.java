@@ -1,8 +1,11 @@
-package pl.wizyg.VehicleRental.customers;
+package pl.wizyg.VehicleRental.RESTapi;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import pl.wizyg.VehicleRental.customers.Customer;
+import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
+import pl.wizyg.VehicleRental.customers.CustomerService;
 
 import java.util.List;
 

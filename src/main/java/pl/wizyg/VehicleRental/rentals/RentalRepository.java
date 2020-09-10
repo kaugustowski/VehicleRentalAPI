@@ -33,7 +33,11 @@ public interface RentalRepository extends JpaRepository<Rental, Integer> {
 
     List<Rental> findAllByVehicle_IdAndStartDateBeforeAndEndDateAfter(Integer vehicle_id, @NotNull LocalDate startDate, LocalDate endDate);
 
-//    @Query("Select r from Rental r Where r.vehicle instanceof RoadVehicle type(RoadVehicle.class) like :lic")
-//    List<Rental> findRentalsByLicPlate(@Param("lic") String licPlate);
+    List<Rental> findByCustomer_IdAndStartDateAfterAndStartDateBeforeAndEndDateAfterAndEndDateBefore(Integer customerId,
+                                                                                                     LocalDate startDateAfter,
+                                                                                                     LocalDate startDateBefore,
+                                                                                                     LocalDate endDateAfter,
+                                                                                                     LocalDate endDateBefore);
+
 
 }

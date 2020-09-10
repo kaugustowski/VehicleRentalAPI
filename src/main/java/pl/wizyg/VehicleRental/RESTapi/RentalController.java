@@ -1,4 +1,4 @@
-package pl.wizyg.VehicleRental.rentals;
+package pl.wizyg.VehicleRental.RESTapi;
 
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -6,6 +6,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.wizyg.VehicleRental.customers.CustomerNotFoundException;
+import pl.wizyg.VehicleRental.rentals.*;
 import pl.wizyg.VehicleRental.vehicles.VehicleNotFoundException;
 
 import java.time.LocalDate;
