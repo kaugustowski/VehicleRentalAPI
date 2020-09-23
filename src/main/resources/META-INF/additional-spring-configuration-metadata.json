@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "vehicle-rental.http.auth-token-header-name",
+      "type": "java.lang.String",
+      "description": "Description for vehicle-rental.http.auth-token-header-name."
+    },
+    {
+      "name": "vehicle-rental.http.auth-token",
+      "type": "java.lang.String",
+      "description": "Description for vehicle-rental.http.auth-token."
+    }
+  ]
+}
