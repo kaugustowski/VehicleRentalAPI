@@ -33,7 +33,7 @@ public class Rental {
     private LocalDate endDate;
 
     @Column(name = "with_transport")
-    private boolean withTransport;
+    private Boolean withTransport;
 
     @OneToOne
     @JoinColumn(name = "customer_id")
@@ -43,7 +43,7 @@ public class Rental {
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 
-    public Rental(@NotNull LocalDate startDate, LocalDate endDate, boolean withTransport, Customer customer, Vehicle vehicle) {
+    public Rental(@NotNull LocalDate startDate, LocalDate endDate, Boolean withTransport, Customer customer, Vehicle vehicle) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.withTransport = withTransport;

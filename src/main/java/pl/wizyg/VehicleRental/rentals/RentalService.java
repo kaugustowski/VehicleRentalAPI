@@ -14,6 +14,8 @@ public interface RentalService {
 
     Rental addRental(RentalDTO rentalDTO) throws CustomerNotFoundException, VehicleNotFoundException, RentalsOverlapException;
 
+    List<Rental> getOverlappingRentals(Rental rental);
+
     List<Rental> getCustomerRentals(int id, CustomerRentalQuery query);
 
     List<Rental> getCustomerRentals(String email);

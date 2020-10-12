@@ -1,5 +1,6 @@
 package pl.wizyg.VehicleRental.rentals;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,10 +29,10 @@ public class RentalDTO {
 
     private int rentalCost;
 
-    public RentalDTO(LocalDate startDate, LocalDate endDate, boolean withTransport, Integer customerId, Integer vehicleId) {
+    @Builder
+    public RentalDTO(LocalDate startDate, LocalDate endDate, Integer customerId, Integer vehicleId) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.withTransport = withTransport;
         this.customerId = customerId;
         this.vehicleId = vehicleId;
     }
@@ -39,7 +40,7 @@ public class RentalDTO {
     public RentalDTO(Rental rental) {
         this.startDate = rental.getStartDate();
         this.endDate = rental.getEndDate();
-        this.withTransport = rental.isWithTransport();
+        this.withTransport = rental.getWithTransport();
         this.customerId = rental.getCustomer().getId();
         this.vehicleId = rental.getVehicle().getId();
         this.numberOfRentalDays = rental.getNumberOfRentalDays();

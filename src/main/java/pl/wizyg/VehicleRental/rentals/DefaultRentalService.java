@@ -13,11 +13,11 @@ import java.util.List;
 public class DefaultRentalService implements RentalService {
 
     final
-    RentalRepository rentalRepository;
+    private RentalRepository rentalRepository;
 
-    final VehicleService vehicleService;
+    final private VehicleService vehicleService;
 
-    final CustomerService customerService;
+    final private CustomerService customerService;
 
     public DefaultRentalService(RentalRepository rentalRepository, VehicleService vehicleService, CustomerService customerService) {
         this.rentalRepository = rentalRepository;
@@ -51,11 +51,13 @@ public class DefaultRentalService implements RentalService {
             throw new RentalsOverlapException("Rental overlaps with existing one!");
     }
 
+    @Override
     public List<Rental> getOverlappingRentals(Rental rental) {
         return rentalRepository.findAllByVehicle_IdAndStartDateBeforeAndEndDateAfter(rental.getVehicle().getId(),
                 rental.getEndDate(),
                 rental.getStartDate());
     }
+
 
     @Override
     public List<Rental> getCustomerRentals(int id, CustomerRentalQuery query) {

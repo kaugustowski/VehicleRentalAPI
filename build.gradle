@@ -35,10 +35,15 @@ dependencies {
 	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
 	compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.4.0'
 
-// https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
 	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.4.0'
 
 	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+	// https://mvnrepository.com/artifact/org.mockito/mockito-core
+	testCompile group: 'org.mockito', name: 'mockito-core', version: '3.5.13'
+	// https://mvnrepository.com/artifact/org.assertj/assertj-core
+	testCompile group: 'org.assertj', name: 'assertj-core', version: '3.6.1'
 
 
 }
