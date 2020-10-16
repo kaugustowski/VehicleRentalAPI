@@ -33,7 +33,7 @@ class DefaultRentalServiceTest {
     }
 
     @Test
-    public void addingRental() throws VehicleNotFoundException, RentalsOverlapException, CustomerNotFoundException {
+    public void addingOverlappingRentalShouldThrowException() throws VehicleNotFoundException, RentalsOverlapException, CustomerNotFoundException {
         //given there are some rental(s)
 
         int anyCustomerId = 1;
