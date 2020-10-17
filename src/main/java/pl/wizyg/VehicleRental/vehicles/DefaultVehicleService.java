@@ -11,11 +11,11 @@ import java.util.List;
 @Service
 public class DefaultVehicleService implements VehicleService {
 
-    final
+    private final
     VehicleRepository vehicleRepository;
-    final
+    private final
     IndustrialVehicleRepository industrialVehicleRepository;
-    final
+    private final
     RoadVehicleRepository roadVehicleRepository;
 
     public DefaultVehicleService(VehicleRepository vehicleRepository,

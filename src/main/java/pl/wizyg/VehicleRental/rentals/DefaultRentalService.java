@@ -12,12 +12,11 @@ import java.util.List;
 @Service
 public class DefaultRentalService implements RentalService {
 
-    final
-    private RentalRepository rentalRepository;
+    private final RentalRepository rentalRepository;
 
-    final private VehicleService vehicleService;
+    private final VehicleService vehicleService;
 
-    final private CustomerService customerService;
+    private final CustomerService customerService;
 
     public DefaultRentalService(RentalRepository rentalRepository, VehicleService vehicleService, CustomerService customerService) {
         this.rentalRepository = rentalRepository;

@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 public class DefaultCustomerService implements CustomerService {
 
-    final
+    private final
     CustomerRepository customerRepository;
 
     public DefaultCustomerService(CustomerRepository customerRepository) {
