@@ -39,5 +39,6 @@ public abstract class Vehicle {
     @Column(name = "production_year")
     private Integer productionYear;
 
+
     public abstract int getTransportCost();
 }

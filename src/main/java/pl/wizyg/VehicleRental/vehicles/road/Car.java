@@ -16,5 +16,4 @@ public class Car extends RoadVehicle {
 
     private boolean isAirConditioned;
 
-
 }
